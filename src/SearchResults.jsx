@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const SearchResults = () => {
+  
+
     return (
         <div>
             <div className="tv-layout">
@@ -161,7 +163,7 @@ const SearchResults = () => {
           </div>
         </div>
       </div>
-        </div>
+    </div>
     )
 }
 
