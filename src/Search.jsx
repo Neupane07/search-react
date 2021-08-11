@@ -3,6 +3,7 @@ import AlphaKeyboard from './AlphaKeyboard';
 import NumKeyboard from './NumKeyboard';
 
 const Search = () => {
+    const [input, setInput] = useState('')
     const [showNumKeyboard,setShowNumKeyboard] = useState(false)
 
     const handleSubmit = e => {
@@ -36,7 +37,7 @@ const Search = () => {
                         <span className="input-search">
                           <img src="assets/images/icons/search-icon.png" />
                         </span>
-                        <input type="text" className="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1" />
+                        <input type="text" value={input} onChange={e => setInput(e.target.value)} className="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1" />
                       </div>
                     </div>
                     <div className="search-block-iteams">
@@ -67,9 +68,9 @@ const Search = () => {
                           </span></div>
                       </div>
                       {showNumKeyboard ? 
-                        <NumKeyboard setShowNumKeyboard={setShowNumKeyboard}/> 
+                        <NumKeyboard setShowNumKeyboard={setShowNumKeyboard} setInput={setInput} input={input}/> 
                         : 
-                        <AlphaKeyboard setShowNumKeyboard={setShowNumKeyboard}/>}
+                        <AlphaKeyboard setShowNumKeyboard={setShowNumKeyboard} setInput={setInput} input={input}/>}
                     </div>
                   </div>
                 </div>

@@ -1,44 +1,42 @@
 import React from 'react'
 
-const NumKeyboard = ({setShowNumKeyboard}) => {
+const NumKeyboard = ({setShowNumKeyboard,input,setInput}) => {
+    const rowOne = [1,2,3,'&','#','(',')'];
+    const rowTwo = [4,5,6,'@','!','?',':'];
+    const rowThree = [7,8,9,0,'.','_','=']
+    const renderRowImp = (arr) => {
+      return arr.map(button => {
+        return <>
+        <span className="key"><button onClick={()=>setInput(input + button)}>{button}</button></span>
+      </>
+      })
+    }
+
+    const handleBackspace = () => {
+      setInput(input.substr(0,input.length -1 ))
+    }
+
+
     return (
         <>
             <div className="key-board-box" id="show-numbers">
+              <div className="key-board-row">
+                {renderRowImp(rowOne)}
+                <span className="arrow-change"><button onClick={handleBackspace}>
+                <img src="assets/images/icons/clear-icon.png" alt="clear icon" />
+                </button></span>
+              </div>
                         <div className="key-board-row">
-                          <span className="key"><button>1</button></span>
-                          <span className="key"><button>2</button></span>
-                          <span className="key"><button>3</button></span>
-                          <span className="key"><button> &amp; </button></span>
-                          <span className="key"><button> # </button></span>
-                          <span className="key"><button> ( </button></span>
-                          <span className="key"><button> ) </button></span>
-                          <span className="arrow-change"><button>
-                              <img src="assets/images/icons/clear-icon.png" alt="clear icon" />
-                            </button></span>
-                        </div>
-                        <div className="key-board-row">
-                          <span className="key"><button>4</button></span>
-                          <span className="key"><button>5</button></span>
-                          <span className="key"><button>6</button></span>
-                          <span className="key"><button> @ </button></span>
-                          <span className="key"><button> ! </button></span>
-                          <span className="key"><button> ? </button></span>
-                          <span className="key"><button> : </button></span>
+                          {renderRowImp(rowTwo)}
                           <span className="arrow-change show-alpabets"><button onClick={() => setShowNumKeyboard(false)} >&amp; ABC</button></span>
                         </div>
                         <div className="key-board-row">
-                          <span className="key"><button>7</button></span>
-                          <span className="key"><button>8</button></span>
-                          <span className="key"><button>9</button></span>
-                          <span className="key"><button>0</button></span>
-                          <span className="key"><button> . </button></span>
-                          <span className="key"><button> _ </button></span>
-                          <span className="key"><button> " </button></span>
+                          {renderRowImp(rowThree)}
                         </div>
                         <div className="key-board-row">
-                          <span className="space-clear"><button>SPACE</button></span>
-                          <span className="space-clear"><button>CLEAR</button></span>
-                          <span className="search-btn"><a href="search-results.html"><button>SEARCH</button></a></span>
+                          <span className="space-clear"><button onClick={() => setInput(input+" ")}>SPACE</button></span>
+                          <span className="space-clear"><button onClick={() => setInput('')}>CLEAR</button></span>
+                          <span className="search-btn"><button>SEARCH</button></span>
                         </div>
                       </div>
         </>

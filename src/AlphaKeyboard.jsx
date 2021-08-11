@@ -1,52 +1,44 @@
 import React from 'react'
 
-const AlphaKeyboard = ({setShowNumKeyboard}) => {
+const AlphaKeyboard = ({setShowNumKeyboard,input,setInput}) => {
+  const rowOne = ['A','B','C','D','E','F','G']
+  const rowTwo = ['H','I','J','K','L','M','N']
+  const rowThree = ['O','P','Q','R','S','T','U']
+  const rowFour = ['V','W','X','Y','Z','-',`'`]
+
+  const renderRowImp = (arr) => {
+    return arr.map(button => {
+      return <>
+      <span className="key"><button onClick={()=>setInput(input + button)}>{button}</button></span>
+    </>
+    })
+  }
+
+  const handleBackspace = () => {
+    setInput(input.substr(0,input.length -1 ))
+  }
     return (
         <>
           <div className="key-board-box" id="show-alpabets">
                         <div className="key-board-row">
-                          <span className="key"><button>A</button></span>
-                          <span className="key"><button>B</button></span>
-                          <span className="key"><button>C</button></span>
-                          <span className="key"><button>D</button></span>
-                          <span className="key"><button>E</button></span>
-                          <span className="key"><button>F</button></span>
-                          <span className="key"><button>G</button></span>
-                          <span className="arrow-change"><button>
+                          {renderRowImp(rowOne)}
+                          <span className="arrow-change"><button onClick={handleBackspace}>
                               <img src="assets/images/icons/clear-icon.png" alt="clear icon"/>
                             </button></span>
                         </div>
                         <div className="key-board-row">
-                          <span className="key"><button>H</button></span>
-                          <span className="key"><button>I</button></span>
-                          <span className="key"><button>J</button></span>
-                          <span className="key"><button>K</button></span>
-                          <span className="key"><button>L</button></span>
-                          <span className="key"><button>M</button></span>
-                          <span className="key"><button>N</button></span>
+                          {renderRowImp(rowTwo)}
                           <span className="arrow-change show-numbers"><button onClick={()=>setShowNumKeyboard(true)}> 123</button></span>
                         </div>
                         <div className="key-board-row">
-                          <span className="key"><button>O</button></span>
-                          <span className="key"><button>P</button></span>
-                          <span className="key"><button>Q</button></span>
-                          <span className="key"><button>R</button></span>
-                          <span className="key"><button>S</button></span>
-                          <span className="key"><button>T</button></span>
-                          <span className="key"><button>U</button></span>
+                          {renderRowImp(rowThree)}
                         </div>
                         <div className="key-board-row">
-                          <span className="key"><button>V</button></span>
-                          <span className="key"><button>W</button></span>
-                          <span className="key"><button>X</button></span>
-                          <span className="key"><button>Y</button></span>
-                          <span className="key"><button>Z</button></span>
-                          <span className="key"><button>-</button></span>
-                          <span className="key"><button>'</button></span>
+                          {renderRowImp(rowFour)}
                         </div>
                         <div className="key-board-row">
-                          <span className="space-clear"><button>SPACE</button></span>
-                          <span className="space-clear"><button>CLEAR</button></span>
+                          <span className="space-clear"><button onClick={() => setInput(input+" ")}>SPACE</button></span>
+                          <span className="space-clear"><button onClick={() => setInput('')}>CLEAR</button></span>
                           <span className="search-btn"><button>SEARCH</button></span>
                         </div>
                       </div>  
