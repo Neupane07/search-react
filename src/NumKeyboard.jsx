@@ -1,23 +1,31 @@
 import React from "react";
 
-const NumKeyboard = ({ setShowNumKeyboard, input, setInput, handleSubmit }) => {
+const NumKeyboard = ({ setShowNumKeyboard, input, setInput, handleSubmit },ref) => {
   const rowOne = [1, 2, 3, "&", "#", "(", ")"];
   const rowTwo = [4, 5, 6, "@", "!", "?", ":"];
   const rowThree = [7, 8, 9, 0, ".", "_", "="];
   const renderRowImp = (arr) => {
     return arr.map((button) => {
       return (
-        <>
           <span className="key" key={button}>
-            <button onClick={() => setInput(input + button)}>{button}</button>
+            <button onClick={() => {
+                setInput(input + button)
+                if(ref.current){
+                  ref.current.focus();
+                }
+                }}>
+              {button}
+            </button>
           </span>
-        </>
       );
     });
   };
 
   const handleBackspace = () => {
     setInput(input.substr(0, input.length - 1));
+    if(ref.current){
+      ref.current.focus();
+    }
   };
 
   return (
@@ -40,7 +48,12 @@ const NumKeyboard = ({ setShowNumKeyboard, input, setInput, handleSubmit }) => {
         <div className="key-board-row">{renderRowImp(rowThree)}</div>
         <div className="key-board-row">
           <span className="space-clear">
-            <button onClick={() => setInput(input + " ")}>SPACE</button>
+          <button onClick={() => {
+              setInput(input + " ")
+              if(ref.current){
+                ref.current.focus();
+              }
+              }}>SPACE</button>
           </span>
           <span className="space-clear">
             <button onClick={() => setInput("")}>CLEAR</button>
@@ -54,4 +67,4 @@ const NumKeyboard = ({ setShowNumKeyboard, input, setInput, handleSubmit }) => {
   );
 };
 
-export default NumKeyboard;
+export default React.forwardRef(NumKeyboard)

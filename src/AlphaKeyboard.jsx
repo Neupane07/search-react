@@ -5,7 +5,7 @@ const AlphaKeyboard = ({
   input,
   setInput,
   handleSubmit,
-}) => {
+},ref) => {
   const rowOne = ["A", "B", "C", "D", "E", "F", "G"];
   const rowTwo = ["H", "I", "J", "K", "L", "M", "N"];
   const rowThree = ["O", "P", "Q", "R", "S", "T", "U"];
@@ -14,17 +14,25 @@ const AlphaKeyboard = ({
   const renderRowImp = (arr) => {
     return arr.map((button) => {
       return (
-        <>
           <span className="key" key={button}>
-            <button onClick={() => setInput(input + button)}>{button}</button>
+          <button onClick={() => {
+                setInput(input + button)
+                if(ref.current){
+                  ref.current.focus();
+                }
+                }}>
+              {button}
+            </button>
           </span>
-        </>
       );
     });
   };
 
   const handleBackspace = () => {
     setInput(input.substr(0, input.length - 1));
+    if(ref.current){
+      ref.current.focus();
+    }
   };
   return (
     <>
@@ -47,7 +55,12 @@ const AlphaKeyboard = ({
         <div className="key-board-row">{renderRowImp(rowFour)}</div>
         <div className="key-board-row">
           <span className="space-clear">
-            <button onClick={() => setInput(input + " ")}>SPACE</button>
+            <button onClick={() => {
+              setInput(input + " ")
+              if(ref.current){
+                ref.current.focus();
+              }
+              }}>SPACE</button>
           </span>
           <span className="space-clear">
             <button onClick={() => setInput("")}>CLEAR</button>
@@ -61,4 +74,4 @@ const AlphaKeyboard = ({
   );
 };
 
-export default AlphaKeyboard;
+export default React.forwardRef(AlphaKeyboard);

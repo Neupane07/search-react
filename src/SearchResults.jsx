@@ -1,21 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import img from './images/image-not-found.jpg'
+import backArrow from './images/icons/arrow-back.png'
+import closeIcon from './images/icons/close-icon.png'
 
 const SearchResults = ({ movies }) => {
-  console.log(movies);
   const renderMovies = movies.map((movie) => {
     let imgUrl = `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
     return (
-      <div className="item">
-        <a href="#">
+      <div className="item" key={movie.id}>
+        <Link to="#">
           <img
             src={
-              movie.backdrop_path ? imgUrl : "assets/images/image-not-found.png"
+              movie.backdrop_path ? imgUrl : img
             }
             alt={movie.original_title}
           />
           <p className="movie-name">{movie.title}</p>
-        </a>
+        </Link>
       </div>
     );
   });
@@ -29,7 +31,7 @@ const SearchResults = ({ movies }) => {
                 <Link to="/search">
                   <div className="round-box back-arrow">
                     <img
-                      src="assets/images/icons/arrow-back.png"
+                      src={backArrow}
                       alt="back arrow"
                     />
                   </div>
@@ -37,7 +39,7 @@ const SearchResults = ({ movies }) => {
                 <Link to="/search">
                   <div className="round-box close-icon">
                     <img
-                      src="assets/images/icons/close-icon.png"
+                      src={closeIcon}
                       alt="close icon"
                     />
                   </div>
@@ -47,128 +49,6 @@ const SearchResults = ({ movies }) => {
                 <h1>Search Results</h1>
                 <div className="col-12">
                   <div className="search-results">
-                    {/* <div className="item">
-                      <a href="#">
-                        <img src="assets/images/Telugu/Thumbnails/Master-thumb.jpg" />
-                        <p className="movie-name">Master (Telugu)</p>
-                      </a>
-                    </div>
-                    <div className="item">
-                      <a href="#">
-                        <img src="assets/images/Telugu/Thumbnails/krack-thumb.jpg" />
-                        <p className="movie-name">Crack (Telugu)</p>
-                      </a>
-                    </div>
-                    <div className="item">
-                      <a href="#">
-                        <img src="assets/images/Telugu/Thumbnails/jathiratnalu-thumb.jpg" />
-                        <p className="movie-name">Jathiratnalu (Telugu)</p>
-                      </a>
-                    </div>
-                    <div className="item">
-                      <a href="#">
-                        <img src="assets/images/Telugu/Thumbnails/Gali-Sampath-thumb.jpg" />
-                        <p className="movie-name">Gali Sampath (Telugu)</p>
-                      </a>
-                    </div>
-                    <div className="item">
-                      <a href="#">
-                        <img src="assets/images/Telugu/Thumbnails/Aranya-thumb.jpg" />
-                        <p className="movie-name">Aranya (Telugu)</p>
-                      </a>
-                    </div>
-                    <div className="item">
-                      <a href="#">
-                        <img src="assets/images/English/Thumbnails/aquaman-thumb.jpg" />
-                        <p className="movie-name">Aquaman (English)</p>
-                      </a>
-                    </div>
-                    <div className="item">
-                      <a href="#">
-                        <img src="assets/images/English/Thumbnails/kong-skull-island-thumb.jpg" />
-                        <p className="movie-name">
-                          KONG Skull Island (English)
-                        </p>
-                      </a>
-                    </div>
-                    <div className="item">
-                      <a href="#">
-                        <img src="assets/images/English/Thumbnails/parasite-thumb.jpg" />
-                        <p className="movie-name">Parasite (English)</p>
-                      </a>
-                    </div>
-                    <div className="item">
-                      <a href="#">
-                        <img src="assets/images/English/Thumbnails/the-revenant-thumb.jpg" />
-                        <p className="movie-name">The Revenant (English)</p>
-                      </a>
-                    </div>
-                    <div className="item">
-                      <a href="#">
-                        <img src="assets/images/English/Thumbnails/wonderwoman1984-thumb.jpg" />
-                        <p className="movie-name">Wonder Women 84 (English)</p>
-                      </a>
-                    </div>
-                    <div className="item">
-                      <a href="#">
-                        <img src="assets/images/Kids-English/Thumbnails/angry-birds-thumb.jpg" />
-                        <p className="movie-name">Angry Birds (English)</p>
-                      </a>
-                    </div>
-                    <div className="item">
-                      <a href="#">
-                        <img src="assets/images/Kids-English/Thumbnails/frozen-thumb.jpg" />
-                        <p className="movie-name">Frozen (English)</p>
-                      </a>
-                    </div>
-                    <div className="item">
-                      <a href="#">
-                        <img src="assets/images/Kids-English/Thumbnails/ice-age-thumb.jpg" />
-                        <p className="movie-name">Ice Age (English)</p>
-                      </a>
-                    </div>
-                    <div className="item">
-                      <a href="#">
-                        <img src="assets/images/Kids-English/Thumbnails/Jungle-Book-thumb.jpg" />
-                        <p className="movie-name">The Jungle Book (English)</p>
-                      </a>
-                    </div>
-                    <div className="item">
-                      <a href="#">
-                        <img src="assets/images/Kids-English/Thumbnails/wonder-park-thumb.jpg" />
-                        <p className="movie-name">Wonder Park (English)</p>
-                      </a>
-                    </div>
-                    <div className="item">
-                      <a href="#">
-                        <img src="assets/images/Hindi/Thumbnails/baagi-3-thumb.jpg" />
-                        <p className="movie-name">Baaghi3 (Hindi)</p>
-                      </a>
-                    </div>
-                    <div className="item">
-                      <a href="#">
-                        <img src="assets/images/Hindi/Thumbnails/Bajirao-Mastani-thumb.jpg" />
-                        <p className="movie-name">Bajirao Mastani (Hindi)</p>
-                      </a>
-                    </div>
-                    <div className="item">
-                      <a href="#">
-                        <img src="assets/images/Hindi/Thumbnails/bharat-thumb.jpg" />
-                        <p className="movie-name">Bharat (Hindi)</p>
-                      </a>
-                    </div>
-                    <div className="item">
-                      <a href="#">
-                        <img src="assets/images/Hindi/Thumbnails/chhichhore-thumb.jpg" />
-                        <p className="movie-name">Chhichhore (Hindi)</p>
-                      </a>
-                    </div>
-                    <div className="item">
-                      <a href="#">
-                        <img src="assets/images/Hindi/Thumbnails/mission-mangal-thumb.jpg" />
-                        <p className="movie-name">Mission Mangal (Hindi)</p>
-                      </a>
-                    </div> */}
                     {renderMovies}
                   </div>
                 </div>
@@ -186,29 +66,29 @@ const SearchResults = ({ movies }) => {
                 <ul>
                   <li>
                     <a href="login.html">
-                      <img src="assets/images/icons/login-icon.png" /> Login
+                      <img src="assets/images/icons/login-icon.png"   alt="icon"/> Login
                     </a>
                   </li>
                   <li>
                     <a href="register.html">
-                      <img src="assets/images/icons/register-icon.png" />{" "}
+                      <img src="assets/images/icons/register-icon.png" alt="icon" />{" "}
                       Registration
                     </a>
                   </li>
                   <li>
                     <a href="subscription.html">
-                      <img src="assets/images/icons/subscrption-icon.png" />{" "}
+                      <img src="assets/images/icons/subscrption-icon.png"  alt="icon"/>{" "}
                       Subscription
                     </a>
                   </li>
                   <li>
                     <a href="search.html">
-                      <img src="assets/images/icons/search-icon.png" /> Search
+                      <img src="assets/images/icons/search-icon.png"  alt="icon"/> Search
                     </a>
                   </li>
                   <li>
                     <a href="categories.html">
-                      <img src="assets/images/icons/categories-icon.png" />{" "}
+                      <img src="assets/images/icons/categories-icon.png" alt="icon" />{" "}
                       Categories
                     </a>
                   </li>
