@@ -18,14 +18,21 @@ const Search = ({ movies, setMovies }) => {
 
   const recentItems = localStorage.getItem("recents");
   console.log(recentItems && JSON.parse(recentItems));
+  const { recents } = JSON.parse(recentItems) || { recents: undefined };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!input.trim()) {
+      return;
+    }
     const t = localStorage.getItem("recents");
     if (t) {
-      const { recents } = JSON.parse(t);
+      let { recents } = JSON.parse(t);
+      if (recents.length > 3) {
+        recents = recents.slice(0, 3);
+      }
       const temp = {
-        recents: [...recents, input],
+        recents: [input, ...recents],
       };
       localStorage.setItem("recents", JSON.stringify(temp));
     } else {
@@ -34,6 +41,14 @@ const Search = ({ movies, setMovies }) => {
     console.log("submitted");
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/search/movie?api_key=6353529a86e99faf4c5a103a3e9e17fd&language=en-US&query=${input}&page=1&include_adult=false`
+    );
+    setMovies(data.results);
+    history.push("/searchresults");
+  };
+
+  const handleRecent = async (recent) => {
+    const { data } = await axios.get(
+      `https://api.themoviedb.org/3/search/movie?api_key=6353529a86e99faf4c5a103a3e9e17fd&language=en-US&query=${recent}&page=1&include_adult=false`
     );
     setMovies(data.results);
     history.push("/searchresults");
@@ -80,42 +95,19 @@ const Search = ({ movies, setMovies }) => {
                     <div className="search-block-iteams">
                       <div className="recent-search">
                         <h1>Recent Search Items</h1>
-                        {/* <div className="seach-item">
-                          <span>
-                            <img
-                              src="assets/images/icons/reload-icon.png"
-                              alt="icon"
-                            />
-                            Jathi Ratnalu Movie
-                          </span>
-                        </div>
-                        <div className="seach-item">
-                          <span>
-                            <img
-                              src="assets/images/icons/reload-icon.png"
-                              alt="icon"
-                            />
-                            Kids English Telugu Dubbed Movies
-                          </span>
-                        </div>
-                        <div className="seach-item">
-                          <span>
-                            <img
-                              src="assets/images/icons/reload-icon.png"
-                              alt="icon"
-                            />
-                            3D Animation Movies
-                          </span>
-                        </div>
-                        <div className="seach-item">
-                          <span>
-                            <img
-                              src="assets/images/icons/reload-icon.png"
-                              alt="icon"
-                            />
-                            Action Movies in Telugu 2020
-                          </span>
-                        </div> */}
+                        {recents &&
+                          recents.map((recent) => {
+                            return (
+                              <div
+                                className="seach-item"
+                                onClick={() => handleRecent(recent)}>
+                                <span>
+                                  <img src={reloadIcon} alt="reload icon" />
+                                  {recent}
+                                </span>
+                              </div>
+                            );
+                          })}
                       </div>
                       {showNumKeyboard ? (
                         <NumKeyboard
