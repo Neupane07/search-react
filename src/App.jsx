@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Search from "./Search";
 import SearchResults from "./SearchResults";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 const App = () => {
   const [movies, setMovies] = useState([]);
@@ -20,6 +20,7 @@ const App = () => {
             <SearchResults movies={movies} setMovies={setMovies} />
           )}
         />
+        <Redirect from="/" to="/search" />
       </Router>
     </div>
   );
